@@ -21,7 +21,7 @@ public class VectorConsumer {
         Picture pic;
         try {
             pic = objectMapper.readValue(message, Picture.class);
-            logger.info("On Log : {}", pic);
+            logger.info("On Vector : {}", pic);
         } catch (IOException e) {
             e.printStackTrace();
         }

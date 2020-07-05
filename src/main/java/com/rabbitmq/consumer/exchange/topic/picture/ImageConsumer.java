@@ -21,7 +21,7 @@ public class ImageConsumer {
         Picture pic;
         try {
             pic = objectMapper.readValue(message, Picture.class);
-            logger.info("On Log : {}", pic);
+            logger.info("On Image : {}", pic);
         } catch (IOException e) {
             e.printStackTrace();
         }
