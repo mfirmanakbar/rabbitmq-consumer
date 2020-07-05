@@ -1,7 +1,7 @@
-package com.rabbitmq.consumer.hr;
+package com.rabbitmq.consumer.exchange.topic.picture;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rabbitmq.entity.Employee;
+import com.rabbitmq.entity.Picture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -10,18 +10,18 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 //@Service
-public class AccountingConsumer {
+public class FilterConsumer {
 
-    private Logger logger = LoggerFactory.getLogger(AccountingConsumer.class);
+    private Logger logger = LoggerFactory.getLogger(FilterConsumer.class);
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @RabbitListener(queues = "q.hr.accounting")
+    @RabbitListener(queues = "q.picturetopic.filter")
     public void listen(String message) {
-        Employee emp;
+        Picture pic;
         try {
-            emp = objectMapper.readValue(message, Employee.class);
-            logger.info("Employee is {}", emp);
+            pic = objectMapper.readValue(message, Picture.class);
+            logger.info("On Filter : {}", pic);
         } catch (IOException e) {
             e.printStackTrace();
         }

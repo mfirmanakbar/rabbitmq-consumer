@@ -1,4 +1,4 @@
-package com.rabbitmq.consumer.picture;
+package com.rabbitmq.consumer.exchange.topic.picture;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.entity.Picture;
@@ -10,18 +10,18 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 //@Service
-public class ImageConsumer {
+public class VectorConsumer {
 
-    private Logger logger = LoggerFactory.getLogger(ImageConsumer.class);
+    private Logger logger = LoggerFactory.getLogger(VectorConsumer.class);
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @RabbitListener(queues = "q.picture.image")
+    @RabbitListener(queues = "q.picturetopic.vector")
     public void listen(String message) {
         Picture pic;
         try {
             pic = objectMapper.readValue(message, Picture.class);
-            logger.info("On Image : {}", pic);
+            logger.info("On Log : {}", pic);
         } catch (IOException e) {
             e.printStackTrace();
         }
