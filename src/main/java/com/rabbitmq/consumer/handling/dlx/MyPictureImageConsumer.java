@@ -23,11 +23,15 @@ public class MyPictureImageConsumer {
         Picture pic = objectMapper.readValue(message, Picture.class);
 
         if (pic.getSize() > 9000) {
-            // don't using this throw, it makes the Infinite Loop forever
+
+            // don't using this throw IllegalArgumentException,
+            // it makes the Infinite Loop forever
             //throw new IllegalArgumentException("Picture size too large : " + pic);
 
-            // this throw to reject the Queue, the Queue will still on RabbitMQ and the error exception just 1 time
+            // this throw to reject the Queue,
+            // the Queue will still on RabbitMQ and the error exception just 1 time
             throw new AmqpRejectAndDontRequeueException("Picture size too large : " + pic);
+
         }
 
         logger.info("On MyPicture : {}", pic);

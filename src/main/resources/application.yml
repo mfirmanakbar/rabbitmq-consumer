@@ -4,3 +4,8 @@ spring:
     port: 5672
     username: guest
     password: 9uGp@iRB8g3VsQU
+    listener:
+      simple:
+        acknowledge-mode: manual
+#      direct:
+#        acknowledge-mode: manual
