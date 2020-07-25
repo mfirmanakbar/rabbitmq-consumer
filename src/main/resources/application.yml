@@ -1,3 +1,6 @@
+module:
+  enabled: show-it
+
 spring:
   rabbitmq:
     host: 127.0.0.1
