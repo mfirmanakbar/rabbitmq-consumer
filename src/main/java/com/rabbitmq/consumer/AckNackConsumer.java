@@ -27,24 +27,41 @@ public class AckNackConsumer {
     @RabbitListener(queues = "q.dummy.direct.a")
     public void listenA(Message message, Channel channel) throws IOException {
         String keys = message.getMessageProperties().getReceivedRoutingKey();
+        long tags = message.getMessageProperties().getDeliveryTag();
         String msg = new String(message.getBody());
         if (!msg.equalsIgnoreCase("Sync Outlet 3") && !msg.equalsIgnoreCase("Sync Outlet 4")) {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+            channel.basicAck(tags, false);
             logger.info("YES-ACK `{}` and key `{}`", msg, keys);
         } else {
             logger.info("NOT-ACK`{}` and key `{}`", msg, keys);
+
+            /**
+             * if use manual acknowledge / basicAck, it will remove the queue
+             * but if we don't hit acknowledge / basicAck, it will re-queue on Rabbit
+             * else we can user basicReject to remove the queue
+             * */
+            //channel.basicReject(tags, false);
+
         }
     }
 
     @RabbitListener(queues = "q.dummy.direct.b")
     public void listenB(Message message, Channel channel) throws IOException {
         String keys = message.getMessageProperties().getReceivedRoutingKey();
+        long tags = message.getMessageProperties().getDeliveryTag();
         String msg = new String(message.getBody());
         if (!msg.equalsIgnoreCase("Sync Outlet 3") && !msg.equalsIgnoreCase("Sync Outlet 4")) {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+            channel.basicAck(tags, false);
             logger.info("YES-ACK `{}` and key `{}`", msg, keys);
         } else {
-            logger.info("NOT-ACK`{}` and key `{}`", msg, keys);
+
+            /**
+             * if use manual acknowledge / basicAck, it will remove the queue
+             * but if we don't hit acknowledge / basicAck, it will re-queue on Rabbit
+             * else we can user basicReject to remove the queue
+             * */
+            //channel.basicReject(tags, false);
+
         }
     }
 
