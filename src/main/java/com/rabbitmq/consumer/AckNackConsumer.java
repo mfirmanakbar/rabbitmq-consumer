@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
-@Service
+//@Service
 public class AckNackConsumer {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
