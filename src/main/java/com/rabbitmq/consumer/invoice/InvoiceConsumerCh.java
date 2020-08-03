@@ -8,25 +8,25 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
-//@Service
-//@RabbitListener(queues = "q.invoice")
-public class InvoiceConsumer {
+@Service
+@RabbitListener(queues = {"q.ch-invoice.one", "q.ch-invoice.two", "q.ch-invoice.three"})
+public class InvoiceConsumerCh {
 
-    public static final Logger logger = LoggerFactory.getLogger(InvoiceConsumer.class);
+    public static final Logger logger = LoggerFactory.getLogger(InvoiceConsumerCh.class);
 
     @RabbitHandler
     public void handleInvoiceCreated(InvoiceCreatedMessage message) {
-        logger.info("on handleInvoiceCreated : {}", message);
+        logger.info("Invoice {}: {}", message.getInvoiceNumber(), message);
     }
 
     @RabbitHandler
     public void handleInvoicePaid(InvoicePaidMessage message) {
-        logger.info("on handleInvoicePaid : {}", message);
+        logger.info("Payment {}: {}", message.getPaymentNumber(), message);
     }
 
     @RabbitHandler(isDefault = true)
     public void handleDefaultObject(Object message) {
-        logger.info("on handleDefaultObject : {}", message);
+        logger.info("Default: {}", message);
     }
 
 }
